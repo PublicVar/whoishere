@@ -1,16 +1,16 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Lists extends BaseSchema {
-  protected tableName = 'lists'
+export default class ListUser extends BaseSchema {
+  protected tableName = 'list_user'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id').primary()
-      table.uuid('uid').index()
-      table.string('name', 255)
-      table.text('description')
-      table.boolean('visible')
-
+      table.increments('id')
+      table.integer('user_id').unsigned().references('users.id')
+      table.integer('list_id').unsigned().references('lists.id')
+      table.unique(['user_id', 'list_id'])
+      table.boolean('present').nullable()
+      table.datetime('presentAt').nullable()
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

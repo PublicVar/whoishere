@@ -1,22 +1,28 @@
-import { v4 as uuid} from 'uuid'
 import { DateTime } from 'luxon'
+import { v4 as uuid} from 'uuid'
 import { BaseModel, column, beforeCreate } from '@ioc:Adonis/Lucid/Orm'
 
-export default class List extends BaseModel {
+export default class User extends BaseModel {
   @column({ isPrimary: true })
-  public id: string
-
+  public id: number
+ 
   @column()
   public uid: string
 
   @column()
-  public name: string
+  public firstname: string
 
   @column()
-  public description: string
+  public lastname: string
 
   @column()
-  public visible: boolean
+  public email: string
+
+  @column()
+  public active: boolean
+
+  @column()
+  public password: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -25,9 +31,9 @@ export default class List extends BaseModel {
   public updatedAt: DateTime
 
   @beforeCreate()
-  public static assignUuid(list: List) {
-      if(null === list.uid){
-          list.uid = uuid()
+  public static assignUuid(user: User) {
+      if(null === user.uid){
+          user.uid = uuid()
       }
   }
 }
