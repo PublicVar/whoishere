@@ -20,6 +20,8 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async ({ view }) => {
-  return view.render('welcome')
-})
+Route.get('/', 'HomeController.index').as('home');
+
+Route.get('/list/:id', 'ListsController.show')
+.where('id', /\w+/)
+.as('list_show');
