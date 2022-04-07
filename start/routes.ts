@@ -25,3 +25,6 @@ Route.get('/', 'HomeController.index').as('home');
 Route.get('/list/:id', 'ListsController.show')
 .where('id', /\w+/)
 .as('list_show');
+
+Route.get('/lists', 'ListsController.index')
+.as('list_index');

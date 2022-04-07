@@ -1,0 +1,25 @@
+@layout('layouts/main')
+
+@set('title', 'Show list')
+
+@section('main_content')
+
+<h1>All lists</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @each(list in lists)
+        <tr>
+            <td>{{ list.name }}</td>
+            <td> <a href="{{ route('list_show', {id: list.id}) }}" class="btn btn-primary btn-sm">Voir</a> </td>
+        </tr>
+        @end
+    </tbody>
+</table>
+@end
