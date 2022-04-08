@@ -5,10 +5,10 @@ export default class ListsController {
 
     public async show({view, params}: HttpContextContract)
     {
-        
         const { id } = params;
 
-        const list = await List.find(id);
+        const list = await List.findOrFail(id);
+        await list.preload('persons');
 
         return view.render('lists/show', {list} ); 
     }

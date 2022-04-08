@@ -1,10 +1,13 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
-import { ListFactory } from 'Database/factories'
+import List from 'App/Models/List';
+import User from 'App/Models/User';
+import { ListFactory, UserForListFactory } from 'Database/factories'
 
 export default class ListSeederSeeder extends BaseSeeder {
     public static developmentOnly = true
 
     public async run () {
-        await ListFactory.createMany(3);
+        await ListFactory.with('persons', 10).createMany(10);
     }
+
 }

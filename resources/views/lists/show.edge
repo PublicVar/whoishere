@@ -6,4 +6,29 @@
 
     <h1>{{ list.name }}</h1>
 
+    <form method="POST">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @each(person in list.persons) 
+            <tr>
+                <td>{{ person.firstname }}</td>
+                <td>{{ person.lastname }}</td>
+                <td>
+                    <input type="checkbox" name="personPresent[]" value="{{ person.uid }}" />
+                </td>
+            </tr>
+            @end
+        <tbody>
+    </table>
+    <div class="left-align">
+    <button type="submit" class="btn btn-primary">Validate</button>
+    </div>
+    </form>
 @end
