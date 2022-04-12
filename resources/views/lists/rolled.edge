@@ -4,7 +4,7 @@
 
 @section('main_content')
 
-    <h1>{{ list.name }}</h1>
+    <h1>Présences</h1>
 
     <form method="POST">
         <table class="table">
@@ -12,23 +12,20 @@
                 <tr>
                     <th>Firstname</th>
                     <th>Lastname</th>
-                    <th></th>
+                    <th>Was present</th>
                 </tr>
             </thead>
             <tbody>
-                @each(person in list.persons)
+                @each(presence in presenceList.presences)
                     <tr>
-                        <td>{{ person.firstname }}</td>
-                        <td>{{ person.lastname }}</td>
+                        <td>{{ presence.person.firstname }}</td>
+                        <td>{{ presence.person.lastname }}</td>
                         <td>
-                            <input type="checkbox" name="personPresent[]" value="{{ person.uid }}" />
+                          {{ presence.isPresent ? 'yes': 'no' }}
                         </td>
                     </tr>
                     @end
                 <tbody>
         </table>
-        <div class="left-align">
-            <button type="submit" class="btn btn-primary">Validate</button>
-        </div>
     </form>
 @end

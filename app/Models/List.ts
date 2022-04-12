@@ -1,7 +1,16 @@
-import { v4 as uuid} from 'uuid'
+import { v4 as uuid } from 'uuid'
 import { DateTime } from 'luxon'
-import { BaseModel, column, beforeCreate, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  column,
+  beforeCreate,
+  ManyToMany,
+  manyToMany,
+  HasMany,
+  hasMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
+import PresenceList from './PresenceList'
 
 export default class List extends BaseModel {
   @column({ isPrimary: true })
@@ -26,14 +35,17 @@ export default class List extends BaseModel {
   public updatedAt: DateTime
 
   @manyToMany(() => User, {
-    pivotTimestamps: true
+    pivotTimestamps: true,
   })
   public persons: ManyToMany<typeof User>
 
+  @hasMany(() => PresenceList)
+  public presenceLists: HasMany<typeof PresenceList>
+
   @beforeCreate()
   public static assignUuid(list: List) {
-      if(null === list.uid){
-          list.uid = uuid()
-      }
+    if (null === list.uid) {
+      list.uid = uuid()
+    }
   }
 }
