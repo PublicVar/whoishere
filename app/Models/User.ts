@@ -1,13 +1,20 @@
 import { DateTime } from 'luxon'
-import { v4 as uuid} from 'uuid'
-import { BaseModel, column, beforeCreate, beforeSave, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { v4 as uuid } from 'uuid'
+import {
+  BaseModel,
+  column,
+  beforeCreate,
+  beforeSave,
+  ManyToMany,
+  manyToMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import Hash from '@ioc:Adonis/Core/Hash'
 import List from './List'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
- 
+
   @column()
   public uid: string
 
@@ -23,7 +30,7 @@ export default class User extends BaseModel {
   @column()
   public active: boolean
 
-  @column({serializeAs: null})
+  @column({ serializeAs: null })
   public password: string
 
   @column.dateTime({ autoCreate: true })
@@ -32,23 +39,22 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-    
   @manyToMany(() => List, {
-    pivotTimestamps: true
+    pivotTimestamps: true,
   })
   public lists: ManyToMany<typeof List>
 
   @beforeCreate()
   public static assignUuid(user: User) {
-      if(null === user.uid){
-          user.uid = uuid()
-      }
+    if (null === user.uid) {
+      user.uid = uuid()
+    }
   }
 
   @beforeSave()
   public static async hashPassword(user: User) {
-    if(user.$dirty.password){
-        user.password = await Hash.make(user.password)
+    if (user.$dirty.password) {
+      user.password = await Hash.make(user.password)
     }
   }
 }

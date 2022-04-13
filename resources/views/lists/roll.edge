@@ -4,9 +4,7 @@
 
 @section('main_content')
 
-    <h1>Make the roll for : {{ list.name }}</h1>
-
-    <p>{{ day.toFormat('yyyy LLL dd') }}</p>
+    <h1>{{ list.name }}</h1>
 
     <form method="POST">
         <table class="table">
@@ -18,12 +16,12 @@
                 </tr>
             </thead>
             <tbody>
-                @each(person in list.persons)
+                @each(person in list.persons) 
                     <tr>
                         <td>{{ person.firstname }}</td>
                         <td>{{ person.lastname }}</td>
                         <td>
-                            <input type="checkbox" name="personsPresent[]" value="{{ person.uid }}" />
+                            <input type="checkbox" name="personPresent[]" value="{{ person.uid }}" />
                         </td>
                     </tr>
                     @end
@@ -33,14 +31,4 @@
             <button type="submit" class="btn btn-primary">Validate</button>
         </div>
     </form>
-
-    <hr />
-
-    <h2>Last rolls for this list</h2>
-    <ul class="icon-list">
-      @each(presence in list.presenceLists)
-        <li><a href="{{ route('list_rolled',{id: presence.id}) }}">{{ presence.date.toFormat('yyyy LLL dd') }}</a></li>
-      @end
-    </ul>
-
 @end
