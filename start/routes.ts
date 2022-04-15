@@ -20,12 +20,18 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
+Route.route('/login', ['GET', 'POST'], 'SecuritiesController.login').as('login')
+
 Route.get('/', 'HomeController.index').as('home')
 
-Route.get('/list/:id', 'ListsController.show').where('id', /\w+/).as('list_show')
+Route.group(() => {
+  Route.get('/list/:id', 'ListsController.show').where('id', /\w+/).as('list_show')
 
-Route.post('/list/:id', 'ListsController.roll').where('id', /\w+/).as('list_roll')
+  Route.post('/list/:id', 'ListsController.roll').where('id', /\w+/).as('list_roll')
 
-Route.get('/lists', 'ListsController.index').as('list_index')
+  Route.get('/lists', 'ListsController.index').as('list_index')
 
-Route.get('/list/presence-list/:id', 'ListsController.rolled').where('id', /\w+/).as('list_rolled')
+  Route.get('/list/presence-list/:id', 'ListsController.rolled')
+    .where('id', /\w+/)
+    .as('list_rolled')
+}).middleware('auth:web')

@@ -10,6 +10,7 @@ import {
 } from '@ioc:Adonis/Lucid/Orm'
 import Hash from '@ioc:Adonis/Core/Hash'
 import List from './List'
+import { Role } from './Enum/Role'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -33,8 +34,14 @@ export default class User extends BaseModel {
   @column({ serializeAs: null })
   public password: string
 
+  @column()
+  public rememberMeToken?: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
+
+  @column()
+  public roles?: Role[]
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime

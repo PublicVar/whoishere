@@ -1,0 +1,31 @@
+@layout('layouts/main')
+@set('title', 'Home')
+
+@section('main_content')
+<div class="px-4 py-5 my-5 text-center row justify-content-center">
+<form class="col-4">
+    {{ csrfField() }}
+    @if(flashMessages.has('errors'))
+  <div class="alert alert-danger d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+    <div>
+      <p>{{ flashMessages.get('errors.title')}}</p>
+      <p>{{ flashMessages.get('errors.description')}}</p>
+    </div>
+  </div>
+  @endif
+<h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+    <div class="form-floating mb-2">
+      <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
+      <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating mb-2">
+      <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+  </form>
+</div>
+@end
+
