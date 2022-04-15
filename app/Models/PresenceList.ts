@@ -1,13 +1,5 @@
 import { DateTime } from 'luxon'
-import {
-  BaseModel,
-  BelongsTo,
-  belongsTo,
-  column,
-  hasMany,
-  HasMany,
-  scope,
-} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import List from './List'
 import PersonPresence from './PersonPresence'
 
@@ -33,9 +25,11 @@ export default class PresenceList extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  public static count = scope((query) => {
-    query
-      .withCount('presences', (queryAggr) => queryAggr.where('isPresent', true))
-      .count('* as present')
-  })
+  public async getPresentPersons(): Promise<number | undefined> {
+    this.presences ?? (await this.load('presences'))
+    const personsPresent: PersonPresence[] = this.presences?.filter(
+      (personPresence: PersonPresence) => !!personPresence.isPresent === true
+    )
+    return personsPresent?.length
+  }
 }

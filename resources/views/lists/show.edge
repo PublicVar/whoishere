@@ -39,7 +39,7 @@
     <h2>Last rolls for this list</h2>
     <ul class="icon-list">
       @each(presence in list.presenceLists)
-        <li><a href="{{ route('list_rolled',{id: presence.id}) }}">{{ presence.date.toFormat('yyyy LLL dd') }}</a></li>
+        <li><a href="{{ route('list_rolled',{id: presence.id}) }}">{{ presence.date.toFormat('yyyy LLL dd HH:MM') }} ({{ await presence.getPresentPersons() }}/{{ await list.numberOfPerson() }})</a></li>
       @end
     </ul>
 

@@ -42,6 +42,11 @@ export default class List extends BaseModel {
   @hasMany(() => PresenceList)
   public presenceLists: HasMany<typeof PresenceList>
 
+  public async numberOfPerson(): Promise<number> {
+    await this.load('persons')
+    return this.persons.length
+  }
+
   @beforeCreate()
   public static assignUuid(list: List) {
     if (null === list.uid) {
