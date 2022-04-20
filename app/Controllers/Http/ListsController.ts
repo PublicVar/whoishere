@@ -6,10 +6,13 @@ import User from 'App/Models/User'
 import { DateTime } from 'luxon'
 
 export default class ListsController {
-  public async show({ view, params }: HttpContextContract) {
+  public async show({ view, params, bouncer }: HttpContextContract) {
     const { id } = params
 
     const list = await List.findOrFail(id)
+    await list.load('owner')
+
+    await bouncer.with('ListPolicy').authorize('list', list)
 
     await Promise.all([list.load('persons'), list.load('presenceLists')])
 
@@ -42,7 +45,8 @@ export default class ListsController {
         const person: User | null = await User.findByOrFail('uid', personUid)
 
         const isPresent: boolean =
-          personsPresent.find((personPresentUid: string) => personUid === personPresentUid) !== undefined
+          personsPresent.find((personPresentUid: string) => personUid === personPresentUid) !==
+          undefined
 
         const personPresent = await PersonPresence.create({ isPresent })
         await personPresent.related('person').associate(person)

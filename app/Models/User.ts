@@ -41,7 +41,7 @@ export default class User extends BaseModel {
   public createdAt: DateTime
 
   @column()
-  public roles?: Role[]
+  public isSuperAdmin: boolean
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime

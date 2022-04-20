@@ -1,5 +1,4 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
-import { Role } from 'App/Models/Enum/Role'
 import User from 'App/Models/User'
 
 export default class UserSeederSeeder extends BaseSeeder {
@@ -15,7 +14,7 @@ export default class UserSeederSeeder extends BaseSeeder {
         email: 'admin-user@mail.com',
         password: 'passw0rd',
         active: true,
-        roles: [Role.Admin],
+        isSuperAdmin: true,
       },
     ])
   }

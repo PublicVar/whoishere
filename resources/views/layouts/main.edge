@@ -9,6 +9,10 @@
     </head>
     <body>
         <main class="container">
+            @if(auth.isLoggedIn)
+              <p class="text-end"> Hello {{ auth.user.firstname }} <a href="{{ route('logout') }}" class="btn btn-outline-dark btn-sm">Logout</a></p>
+            @endif
+
             @!section('main_content')
         </main>
     </body>

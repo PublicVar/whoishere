@@ -21,4 +21,10 @@ export default class SecuritiesController {
 
     return view.render('security/login')
   }
+
+  public async logout({ response, auth }: HttpContextContract) {
+    await auth.logout()
+
+    response.redirect(Route.makeUrl('home'))
+  }
 }

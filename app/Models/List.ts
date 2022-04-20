@@ -8,6 +8,10 @@ import {
   manyToMany,
   HasMany,
   hasMany,
+  HasOne,
+  hasOne,
+  belongsTo,
+  BelongsTo,
 } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 import PresenceList from './PresenceList'
@@ -41,6 +45,14 @@ export default class List extends BaseModel {
 
   @hasMany(() => PresenceList)
   public presenceLists: HasMany<typeof PresenceList>
+
+  @belongsTo(() => User, {
+    foreignKey: 'ownerId',
+  })
+  public owner: BelongsTo<typeof User>
+
+  @column()
+  public ownerId: number
 
   public async numberOfPerson(): Promise<number> {
     await this.load('persons')
